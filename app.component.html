@@ -1,0 +1,73 @@
+<div class="content bg "><br />
+ 
+  <h2 class="textHead card-title">Weather Application</h2>
+  <form [formGroup]="exampleForm" #city="ngForm" (ngSubmit)="updateName(city.value)" class="card">
+    <div class="">
+      <div class="form-group ">
+        <label>Country</label>
+        <select class="form-control" formControlName="Country" data-toggle="tooltip" data-placement="right"
+          title="Select Country" placeholder="Country" [(ngModel)]="selectedCountry" (change)="changeCountry($event)">
+          <option>--Choose Country--</option>
+          <option *ngFor="let country of Countries">{{country.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="">
+      <div class="form-group">
+        <label>State</label>
+        <select class="form-control" formControlName="State" data-toggle="tooltip" data-placement="right"
+          title="Select State" placeholder="State" (change)="changeState($event)">
+          <option>--Choose State--</option>
+          <option *ngFor="let state of states">{{state.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="">
+      <div class="form-group ">
+        <label>City</label>
+
+        <select class="form-control" formControlName="City" data-toggle="tooltip" data-placement="right"
+          title="Select city" placeholder="City">
+          <option>--Choose City--</option>
+          <option *ngFor="let city of cities">{{city}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group  ">
+      <input type="submit" class="button" (click)="toggleTag()" value="submit">
+    </div>
+  </form>
+
+  <div *ngIf="showMe" class="weather">
+    <table class="weather ">
+      <tr class="weathertd weatherth">
+        <th>Country</th>
+        <th>Name</th>
+        <th>Longitude</th>
+        <th>Latitude</th>
+        <th>Temperature</th>
+        <th>speed</th>
+        <th>Weather</th>
+        <th>Humidity</th>
+        <th>Description</th>
+      </tr>
+      <tr class="tableContent">
+        <td>{{result.sys.country}}</td>
+        <td>{{result.name}}</td>
+        <td>{{result.coord.lon}}</td>
+        <td>{{result.coord.lat}}</td>
+        <td>{{result.main.temp-273.15}}</td>
+        <td>{{result.wind.speed}}</td>
+        <td>{{result.weather[0].main}}</td>
+        <td>{{result.main.humidity}}</td>
+        <td>{{result.weather[0].description}}</td>
+      </tr>
+    </table>
+    <p *ngIf="result.main.humidity<70">It's going to be humid day</p> 
+  <p *ngIf="result.main.humidity>70 && result.main.humidity < 80">High rain showeres in the city</p>
+  
+  <p  *ngIf="result.main.humidity>80">Rain for sure</p> 
+</div>
+ 
+   <div class="date">{{today | date}}</div>
+  
